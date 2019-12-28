@@ -53,6 +53,7 @@
         <module>springcloud-eureka-server-security</module>
         <module>springcloud-eureka-server-ssl</module>
         <module>springcloud-eureka-provider</module>
+        <module>springcloud-eureka-client</module>
     </modules>
 
 
