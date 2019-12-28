@@ -34,6 +34,8 @@
     
     <modules>
         <module>springcloud-eureka-server</module>
+        <module>springcloud-eureka-server-security</module>
+        <module>springcloud-eureka-server-ssl</module>
     </modules>
 
 
