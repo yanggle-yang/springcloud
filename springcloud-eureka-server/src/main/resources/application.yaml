@@ -51,7 +51,7 @@ eureka:
 
 # 服务名称
 spring:
-  profiles: http-eurekaserver-A
+  profiles: eureka-server-A
 
 server:
   # 服务端口
@@ -76,7 +76,7 @@ eureka:
 
 # 服务名称
 spring:
-  profiles: http-eurekaserver-B
+  profiles: eureka-server-B
 
 server:
   # 服务端口
@@ -101,7 +101,7 @@ eureka:
 
 # 服务名称
 spring:
-  profiles: http-eurekaserver-C
+  profiles: eureka-server-C
 
 server:
   # 服务端口
