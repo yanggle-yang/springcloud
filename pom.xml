@@ -20,6 +20,13 @@
         <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -31,11 +38,21 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
     <modules>
         <module>springcloud-eureka-server</module>
         <module>springcloud-eureka-server-security</module>
         <module>springcloud-eureka-server-ssl</module>
+        <module>springcloud-eureka-provider</module>
     </modules>
 
 
