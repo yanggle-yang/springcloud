@@ -1,0 +1,54 @@
+config:
+  eureka:
+    # 集群地址列表
+    serverA: server-A
+    serverB: server-B
+    serverC: server-C
+
+    # 集群端口列表
+    portA: 9001
+    portB: 9002
+    portC: 9003
+
+spring:
+  application:
+    name: app-comsumer #服务名称
+
+server:
+  port: 10002 #服务端口
+
+# Eureka配置
+eureka:
+  instance:
+    # 是否微服务调用地址为IP优先(缺省值false)
+    prefer-ip-address: false
+
+    # 主机名称
+    #hostname: app-comsumer
+
+    # 设置机器IP
+    ip-address: 127.0.0.1
+
+    # 设置注册中心微服务名(默认为：机器主机名:应用名称:应用端口)
+    #instance-id: ${eureka.instance.hostname}:${server.port}
+    instance-id: ${eureka.instance.ip-address}:${server.port}
+
+    # 客户端向服务器发送心跳的频率(缺省值30s)
+    lease-renewal-interval-in-seconds: 30
+
+  client:
+    # 是否将自己作为客户端注册到注册中心(缺省值true)
+    register-with-eureka: true
+
+    # 是否从注册中心获取注册信息(缺省值true)
+    fetch-registry: true
+
+    # 从注册中心获取注册信息的间隔时间(缺省值30s)
+    # 测试环境，可以适当提高Client端拉取Server注册信息的频率
+    registry-fetch-interval-seconds: 30
+
+    service-url:
+      defaultZone: "http://${config.eureka.serverA}:${config.eureka.portA}/eureka/, \
+                    http://${config.eureka.serverB}:${config.eureka.portB}/eureka/, \
+                    http://${config.eureka.serverC}:${config.eureka.portC}/eureka/"
+
