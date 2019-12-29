@@ -1,30 +1,29 @@
 config:
-  # 集群地址列表
+  #集群地址列表
   serverA: eureka-server-9001
   serverB: eureka-server-9002
   serverC: eureka-server-9003
 
-  # 集群端口列表
+  #集群端口列表
   portA: 9001
   portB: 9002
   portC: 9003
 
 spring:
   application:
-    # 服务名称
-    name: eureka-server
+    name: eureka-server #服务名称
 
-# Eureka配置
+#Eureka配置
 eureka:
 
   instance:
-    # 是否微服务调用地址为IP优先(缺省为false)
+    #是否注册时使用IP地址(缺省为false)
     prefer-ip-address: false
 
-    # Client向Server发送心跳的频率(缺省值30s)
+    #Client向Server发送心跳的频率(缺省值30s)
     lease-renewal-interval-in-seconds: 30
 
-    # 服务器在收到最后一次心跳之后等待的持续时间(缺省值90s)，然后才能从其注册表中删除实例
+    #服务器在收到最后一次心跳之后等待的持续时间(缺省值90s)，然后才能从其注册表中删除实例
     lease-expiration-duration-in-seconds: 90
 
   client:
@@ -49,22 +48,19 @@ eureka:
 
 ---
 
-# 服务名称
 spring:
   profiles: eureka-server-A
 
 server:
-  # 服务端口
-  port: ${config.portA}
+  port: ${config.portA} #服务端口
 
-# Eureka配置
+#Eureka配置
 eureka:
 
   instance:
-    # 主机名称
-    hostname: ${config.serverA}
+    hostname: ${config.serverA} #主机名称
 
-    # 设置注册中心微服务名(默认为：机器主机名:应用名称:应用端口)
+    #设置注册中心微服务名(默认为：机器主机名:应用名称:应用端口)
     instance-id: ${eureka.instance.hostname}:${server.port}
 
   client:
@@ -74,22 +70,19 @@ eureka:
 
 ---
 
-# 服务名称
 spring:
   profiles: eureka-server-B
 
 server:
-  # 服务端口
-  port: ${config.portB}
+  port: ${config.portB} #服务端口
 
-# Eureka配置
+#Eureka配置
 eureka:
 
   instance:
-    # 主机名称
-    hostname: ${config.serverB}
+    hostname: ${config.serverB} #主机名称
 
-    # 设置注册中心微服务名(默认为：机器主机名:应用名称:应用端口)
+    #设置注册中心微服务名(默认为：机器主机名:应用名称:应用端口)
     instance-id: ${eureka.instance.hostname}:${server.port}
 
   client:
@@ -99,22 +92,19 @@ eureka:
 
 ---
 
-# 服务名称
 spring:
   profiles: eureka-server-C
 
 server:
-  # 服务端口
-  port: ${config.portC}
+  port: ${config.portC} #服务端口
 
-# Eureka配置
+#Eureka配置
 eureka:
 
   instance:
-    # 主机名称
-    hostname: ${config.serverC}
+    hostname: ${config.serverC} #主机名称
 
-    # 设置注册中心微服务名(默认为：机器主机名:应用名称:应用端口)
+    #设置注册中心微服务名(默认为：机器主机名:应用名称:应用端口)
     instance-id: ${eureka.instance.hostname}:${server.port}
 
   client:
