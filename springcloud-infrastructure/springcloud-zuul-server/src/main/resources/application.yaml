@@ -1,0 +1,122 @@
+config:
+  eureka:
+    #集群地址列表
+    serverA: server-A
+    serverB: server-B
+    serverC: server-C
+
+    #集群端口列表
+    portA: 9001
+    portB: 9002
+    portC: 9003
+
+  zuul:
+    #集群地址列表
+    serverA: server-A
+    serverB: server-B
+
+    #集群端口列表
+    portA: 9101
+    portB: 9102
+
+spring:
+  application:
+    name: zuul-server #服务名称
+
+#server:
+#  port: 9100 #服务端口
+
+#Eureka配置
+eureka:
+  instance:
+    #是否微服务调用地址为IP优先(缺省值false)
+    prefer-ip-address: false
+
+    #设置注册中心微服务名(默认为：机器主机名:应用名称:应用端口)
+    instance-id: ${eureka.instance.hostname}:${server.port}
+    #instance-id: ${eureka.instance.ip-address}:${server.port}
+
+    #客户端向服务器发送心跳的频率(缺省值30s)
+    lease-renewal-interval-in-seconds: 30
+
+  client:
+    #是否将自己作为客户端注册到注册中心(缺省值true)
+    register-with-eureka: true
+
+    #是否从注册中心获取注册信息(缺省值true)
+    fetch-registry: true
+
+    #从注册中心获取注册信息的间隔时间(缺省值30s)
+    #测试环境，可以适当提高Client端拉取Server注册信息的频率
+    registry-fetch-interval-seconds: 30
+
+    service-url:
+      defaultZone: "http://${config.eureka.serverA}:${config.eureka.portA}/eureka/, \
+                    http://${config.eureka.serverB}:${config.eureka.portB}/eureka/, \
+                    http://${config.eureka.serverC}:${config.eureka.portC}/eureka/"
+
+#Zuul的配置
+#在请求的url路径前加上"/zuul"的效果，等同于直接访问对应微服务
+zuul:
+  #通过zuul.prefix属性配置前缀，为所有请求添加统一的前缀，默认为空串，即不添加前缀。
+  #可以通过该属性实现API接口的版本号控制，注意前缀要以"/"开头，此处设置为"/v1"表示API接口为v1版本。
+  prefix: /v1
+  #如果某服务存在多个实例，Zuul结合Ribbon会做负载均衡，将请求均分的部分路由到不同的服务实例
+  #zuul.routes属性配置路由器的路由信息。
+  routes:
+    #路由的名称是用户自定义的，需要指定它的path和serviceld，二者规定了将指定规则的请求Url路由到指定的Serviceld
+    #符合/routea/**规则的请求转发给微服务springcloud-serviceA
+    routeA:
+      path: /routea/**
+      serviceId: application-serviceA #pplication-name，非instance-id
+    #符合/routeb/** 规则的请求转发给微服务springcloud-serviceB
+    routeB:
+      path: /routeb/**
+      serviceId: application-serviceB #pplication-name，非instance-id
+
+#指明日志存放位置
+logging:
+  file:
+    name: logs/zuul-${server.port}.logs
+
+---
+
+spring:
+  profiles: zuul-server-A
+
+server:
+  port: ${config.zuul.portA} #服务端口
+
+#Eureka配置
+eureka:
+
+  instance:
+    hostname: ${config.zuul.serverA} #主机名称
+
+    #ip-address: 127.0.0.1 #设置机器IP
+
+#Actuator的配置
+management:
+  server:
+    port: ${config.zuul.portA} #服务端口
+
+---
+
+spring:
+  profiles: zuul-server-B
+
+server:
+  port: ${config.zuul.portB} #服务端口
+
+#Eureka配置
+eureka:
+
+  instance:
+    hostname: ${config.zuul.serverB} #主机名称
+
+    #ip-address: 127.0.0.1 #设置机器IP
+
+#Actuator的配置
+management:
+  server:
+    port: ${config.zuul.portB} #服务端口
