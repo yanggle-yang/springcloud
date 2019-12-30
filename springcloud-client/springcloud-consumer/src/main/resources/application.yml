@@ -10,12 +10,15 @@ config:
     portB: 9002
     portC: 9003
 
+  provider:
+    servicePath: http://localhost:10001/provider/date
+
 spring:
   application:
-    name: app-provider #服务名称
+    name: app-consumer #服务名称
 
 server:
-  port: 10001 #服务端口
+  port: 10002 #服务端口
 
 # Eureka配置
 eureka:
@@ -24,7 +27,7 @@ eureka:
     prefer-ip-address: false
 
     # 主机名称
-    #hostname: ${config.eureka.serverA}
+    #hostname: app-consumer
 
     # 设置机器IP
     ip-address: 127.0.0.1
@@ -51,3 +54,4 @@ eureka:
       defaultZone: "http://${config.eureka.serverA}:${config.eureka.portA}/eureka/, \
                     http://${config.eureka.serverB}:${config.eureka.portB}/eureka/, \
                     http://${config.eureka.serverC}:${config.eureka.portC}/eureka/"
+

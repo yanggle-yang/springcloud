@@ -38,7 +38,11 @@
 
     <modules>
         <module>springcloud-provider</module>
-        <module>springcloud-comsumer</module>
+        <module>springcloud-consumer</module>
+        <module>springcloud-consumer-feign</module>
+        <module>springcloud-consumer-feign-hystrix</module>
+        <module>springcloud-consumer-ribbon</module>
+        <module>springcloud-consumer-ribbon-hystrix</module>
     </modules>
 
 </project>
