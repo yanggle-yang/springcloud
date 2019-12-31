@@ -100,3 +100,16 @@ hystrix:
             interruptOnFutureCancel: true
             # 当隔离策略为THREAD时，当执行线程执行超时时，是否进行中断处理，默认为true。
             interruptOnTimeout: true
+
+#Hystrix监控配置
+#Actuator启用所有的监控端点，“*”号代表启用所有的监控端点，可以单独启用，例如：health，info，metrics
+#spring boot升为2.0后，为了安全，默认Actuator只暴露了2个端点，heath 和 info，
+#访问：http://localhost:10002/actuator/metrics
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
