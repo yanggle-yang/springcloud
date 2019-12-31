@@ -1,0 +1,196 @@
+config:
+  # 集群地址列表
+  serverA: eureka-server-9001
+  serverB: eureka-server-9002
+  serverC: eureka-server-9003
+
+  # 集群端口列表
+  portA: 9001
+  portB: 9002
+  portC: 9003
+
+  ssl:
+    client:
+      key-store: client.p12
+      key-store-password: client
+    server:
+      key-store: server.p12
+      key-alias: server
+      key-store-type: PKCS12
+      key-store-password: server
+
+---
+
+# 服务名称
+spring:
+  profiles: eureka-server-A
+  application:
+    # 服务名称
+    name: eureka-server-ssl
+
+server:
+  # 服务端口
+  port: ${config.portA}
+
+  # SSL配置
+  ssl:
+    # 是否开启SSL认证
+    enabled: true
+    # 证书存放路径
+    key-store: ${config.ssl.server.key-store}
+    # 证书别名
+    key-alias: ${config.ssl.server.key-alias}
+    # 证书存储类型
+    key-store-type: ${config.ssl.server.key-store-type}
+    # 证书密码
+    key-store-password: ${config.ssl.server.key-store-password}
+
+# Eureka配置
+eureka:
+
+  instance:
+    # 是否微服务调用地址为IP优先(缺省为false)
+    prefer-ip-address: false
+
+    # 主机名称
+    hostname: ${config.serverA}
+
+    # 设置注册中心微服务名(默认为：机器主机名:应用名称:应用端口)
+    instance-id: ${eureka.instance.hostname}:${server.port}
+
+    # 安全端口
+    secure-port: ${server.port}
+
+    # 是否启用安全端口
+    secure-port-enabled: true
+
+    # 是否启用非安全端口
+    non-secure-port-enabled: false
+
+    # Client向Server发送心跳的频率(缺省值30s)
+    lease-renewal-interval-in-seconds: 30
+
+    # 服务器在收到最后一次心跳之后等待的持续时间(缺省值90s)，然后才能从其注册表中删除实例
+    lease-expiration-duration-in-seconds: 90
+
+  client:
+    service-url:
+      defaultZone: "https://${config.serverB}:${config.portB}/eureka/, \
+                    https://${config.serverC}:${config.portC}/eureka/"
+
+---
+
+# 服务名称
+spring:
+  profiles: eureka-server-B
+  application:
+    # 服务名称
+    name: eureka-server-ssl
+
+server:
+  # 服务端口
+  port: ${config.portB}
+
+  # SSL配置
+  ssl:
+    # 是否开启SSL认证
+    enabled: true
+    # 证书存放路径
+    key-store: ${config.ssl.server.key-store}
+    # 证书别名
+    key-alias: ${config.ssl.server.key-alias}
+    # 证书存储类型
+    key-store-type: ${config.ssl.server.key-store-type}
+    # 证书密码
+    key-store-password: ${config.ssl.server.key-store-password}
+
+# Eureka配置
+eureka:
+
+  instance:
+    # 是否微服务调用地址为IP优先(缺省为false)
+    prefer-ip-address: false
+
+    # 主机名称
+    hostname: ${config.serverB}
+
+    # 设置注册中心微服务名(默认为：机器主机名:应用名称:应用端口)
+    instance-id: ${eureka.instance.hostname}:${server.port}
+
+    # 安全端口
+    secure-port: ${server.port}
+
+    # 是否启用安全端口
+    secure-port-enabled: true
+
+    # 是否启用非安全端口
+    non-secure-port-enabled: false
+
+    # Client向Server发送心跳的频率(缺省值30s)
+    lease-renewal-interval-in-seconds: 30
+
+    # 服务器在收到最后一次心跳之后等待的持续时间(缺省值90s)，然后才能从其注册表中删除实例
+    lease-expiration-duration-in-seconds: 90
+
+  client:
+    service-url:
+      defaultZone: "https://${config.serverA}:${config.portA}/eureka/, \
+                    https://${config.serverC}:${config.portC}/eureka/"
+---
+
+# 服务名称
+spring:
+  profiles: eureka-server-C
+  application:
+    # 服务名称
+    name: eureka-server-ssl
+
+server:
+  # 服务端口
+  port: ${config.portC}
+
+  # SSL配置
+  ssl:
+    # 是否开启SSL认证
+    enabled: true
+    # 证书存放路径
+    key-store: ${config.ssl.server.key-store}
+    # 证书别名
+    key-alias: ${config.ssl.server.key-alias}
+    # 证书存储类型
+    key-store-type: ${config.ssl.server.key-store-type}
+    # 证书密码
+    key-store-password: ${config.ssl.server.key-store-password}
+
+# Eureka配置
+eureka:
+
+  instance:
+    # 是否微服务调用地址为IP优先(缺省为false)
+    prefer-ip-address: false
+
+    # 主机名称
+    hostname: ${config.serverC}
+
+    # 设置注册中心微服务名(默认为：机器主机名:应用名称:应用端口)
+    instance-id: ${eureka.instance.hostname}:${server.port}
+
+    # 安全端口
+    secure-port: ${server.port}
+
+    # 是否启用安全端口
+    secure-port-enabled: true
+
+    # 是否启用非安全端口
+    non-secure-port-enabled: false
+
+    # Client向Server发送心跳的频率(缺省值30s)
+    lease-renewal-interval-in-seconds: 30
+
+    # 服务器在收到最后一次心跳之后等待的持续时间(缺省值90s)，然后才能从其注册表中删除实例
+    lease-expiration-duration-in-seconds: 90
+
+  client:
+    service-url:
+      defaultZone: "https://${config.serverA}:${config.portA}/eureka/, \
+                    https://${config.serverB}:${config.portB}/eureka/"
