@@ -28,10 +28,7 @@
     </dependencies>
 
     <modules>
-        <module>springcloud-eureka-server-standalone</module>
-        <module>springcloud-eureka-server-ha3</module>
-        <module>springcloud-eureka-server-security</module>
-        <module>springcloud-eureka-server-ssl</module>
+        <module>springcloud-eureka-server</module>
         <module>springcloud-config-server</module>
         <module>springcloud-gateway-server</module>
         <module>springcloud-zuul-server</module>

@@ -48,7 +48,7 @@
 
     <build>
         <plugins>
-            <!--Spring Boot的Maven插件，使用Maven插件的方式来启动Spring Boot工程，如果不
+            <!--Spring Boot的Maven插件，使用Maven插件的方式来打包Spring Boot工程，如果不
             添加该插件在使用mvn命令打包的jar有问题，执行时会报错：xxx.jar中没有主清单属性-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -58,7 +58,7 @@
     </build>
 
     <modules>
-        <module>springcloud-client</module>
+        <module>springcloud-microservice</module>
         <module>springcloud-infrastructure</module>
     </modules>
 
