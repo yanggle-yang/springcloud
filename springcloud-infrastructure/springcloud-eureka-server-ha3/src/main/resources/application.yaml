@@ -12,7 +12,7 @@ config:
 
 spring:
   application:
-    name: eureka-server #服务名称
+    name: eureka-server-ha #服务名称
 
 #Eureka配置
 eureka:

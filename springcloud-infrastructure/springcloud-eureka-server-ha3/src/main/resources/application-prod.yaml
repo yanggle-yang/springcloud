@@ -6,7 +6,7 @@ config:
 
 spring:
   application:
-    name: eureka-server #服务名称
+    name: eureka-server-ha #服务名称
 
 server:
   port: 9000 #服务端口
